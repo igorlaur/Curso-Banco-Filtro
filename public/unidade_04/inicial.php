@@ -1,6 +1,8 @@
 <?php require_once("../../conexao/conexao.php"); ?>
 
 <?php
+    // Determinar localidade BR
+    setlocale(LC_ALL, 'pt_BR'); // Para colocar o R$, colocar a ',' no lugar do '.' etc
     // Consulta ao banco de dados
     $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena";
     $produtos .= " FROM produtos ";
@@ -18,6 +20,7 @@
         
         <!-- estilo -->
         <link href="_css/estilo.css" rel="stylesheet">
+        <link href="_css/produtos.css" rel="stylesheet">
     </head>
 
     <body>
@@ -26,17 +29,19 @@
         
         <main>  
             
-            <?php
-                while($linha = mysqli_fetch_assoc($resultado)){
-            ?>
-            <ul>
-                <li><img src="<?php echo $linha["imagempequena"] ?>"></li>
-                <li><?php echo $linha["nomeproduto"] ?></li>
-                <li>Tempo de entrega: <?php echo $linha["tempoentrega"] ?></li>                    
-                <li>Pre&ccedil;o unit&aacute;rio: <?php echo $linha["precounitario"] ?></li>    
-            </ul>
+            <div id="listagem_produtos">
+                <?php
+                    while($linha = mysqli_fetch_assoc($resultado)){
+                ?>
+                <ul>
+                    <li class="imagem"><img src="<?php echo $linha["imagempequena"] ?>"></li>
+                    <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
+                    <li>Tempo de entrega: <?php echo $linha["tempoentrega"] ?></li>                    
+                    <li>Pre&ccedil;o unit&aacute;rio: <?php echo $linha["precounitario"] ?></li>    
+                </ul>
 
-            <?php } ?>
+                <?php } ?>
+            </div>
         </main>
 
         <?php include "_incluir/rodape.php"; ?>

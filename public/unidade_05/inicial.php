@@ -2,7 +2,7 @@
 
 <?php
     // Determinar localidade BR
-    setlocale(LC_ALL, 'pt_BR');
+    setlocale(LC_ALL, 'pt_BR'); // Para colocar o R$, colocar a ',' no lugar do '.' etc
 
     // Consulta ao banco de dados
     $produtos = "SELECT produtoID, nomeproduto, tempoentrega, precounitario, imagempequena ";
@@ -33,10 +33,15 @@
                 while($linha = mysqli_fetch_assoc($resultado)) {
             ?>
                 <ul>
-                    <li class="imagem"><img src="<?php echo $linha["imagempequena"] ?>"></li>
+                    <li class="imagem">
+                        <a href="detalhe.php?codigo=<?php echo $linha['produtoID'] ?>"> <!-- Coloquei o 'produtoID' para aparecer como parâmetro neste meu link -->
+                            <img src="<?php echo $linha["imagempequena"] ?>">
+                        </a>
+                    </li>
                     <li><h3><?php echo $linha["nomeproduto"] ?></h3></li>
                     <li>Tempo de Entrega : <?php echo $linha["tempoentrega"] ?></li>
-                    <li>Pre&ccedil;o unit&aacute;rio : <?php echo money_format('%.2n',$linha["precounitario"]) ?></li>
+                    <li>Pre&ccedil;o unit&aacute;rio: <?php echo $linha["precounitario"] ?></li>    
+
                 </ul>
              <?php
                 }
